@@ -1,0 +1,6 @@
+##Basic Commands
+`ls` - It is used to list files and directories in the current working directory.
+
+## 1. `pwd`
+**Print Working Directory**  
+Shows the full path of your current location in the filesystem.
