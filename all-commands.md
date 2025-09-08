@@ -1,27 +1,27 @@
 ## File Manipulation
 
-#### 1. `ls` - Lists files and directories in the current working directory.
+**`ls`** - Lists files and directories in the current working directory.
 ```bash
 ls -l    # detailed list
 ls -a    # show hidden files
 ll       # alias for ls -l
 ```
-#### 2. `pwd` - It allows you to print the current working directory.
-#### 3. `cd <path>` - Change current working directory.
-#### 4. `mkdir <new_dir>` - Create new directory.
+**`pwd`** - It allows you to print the current working directory.
+**`cd <path>`** - Change current working directory.
+**`mkdir <new_dir>`** - Create new directory.
 ```bash
 mkdir -p <dir_name>  # create recursive directory
 ```
-#### 5. `rmdir <dir>` - Remove empty directory.
-#### 6. `rm <file>` - Remove empty file.
+**`rmdir <dir>`** - Remove empty directory.
+**`rm <file>`** - Remove empty file.
 ```bash
 rm -rf <dir_name>  # recursive delete all files in directory
 ```
-#### 7. touch <file> - Create an empty file or update file timestamp.
+**`touch <file>`** - Create an empty file or update file timestamp.
 ```bash
 touch file1 file2   # create multiple files
 ```
-#### 8. cp <src> <dest> - Copy files or directories.
+**`cp <src> <dest>`** - Copy files or directories.
 ```bash
 cp file1 file2.txt         # copy file  
 cp -r dir1 dir2            # copy directory recursively
@@ -125,3 +125,348 @@ file script.sh   # check if it’s ASCII, binary, etc.
 
 strings <binary> - Extract readable text from binaries.
 strings /bin/ls | grep "usage"   # find readable strings in binary
+
+
+
+🔹 Process and System Monitoring Commands
+ps - Show running processes.
+ps aux          # detailed process info  
+ps -ef | grep nginx   # find process by name
+
+top - Real-time process and resource monitor.
+top   # live view of CPU/memory usage  
+
+htop - Interactive process viewer (better than top).
+htop   # requires package installation
+
+kill <pid> - Kill a process by PID.
+kill -9 1234   # force kill process
+
+jobs - Show background jobs in current shell.
+jobs   # list jobs
+
+bg / fg - Resume jobs in background/foreground.
+fg %1   # bring job 1 to foreground  
+bg %1   # run job 1 in background
+
+uptime - Show system load averages and uptime.
+uptime
+
+free -h - Show memory usage.
+free -h   # human-readable format
+
+vmstat - Show CPU, memory, I/O statistics.
+vmstat 2 5   # sample every 2s, 5 times
+
+iostat - Show CPU and disk I/O statistics.
+iostat -x 2   # extended stats every 2s
+
+sar - System activity reporter (CPU, memory, network).
+sar -u 1 3   # CPU usage every 1s, 3 times
+
+🔹 System Commands
+uname -a - Show system information.
+uname -r    # kernel version  
+uname -m    # machine architecture
+
+hostname - Show or set system hostname.
+hostname    # display hostname  
+hostnamectl set-hostname newhost
+
+dmesg - Show kernel ring buffer logs.
+dmesg | grep usb   # check USB logs
+
+uptime - Show system uptime and load averages.
+uptime
+
+date - Show or set system date/time.
+date "+%Y-%m-%d %H:%M:%S"   # formatted date
+
+cal - Display a calendar.
+cal 2025   # calendar for year 2025
+
+shutdown - Power off/reboot system.
+shutdown -h now    # shutdown immediately  
+shutdown -r now    # reboot immediately
+
+reboot - Restart system.
+reboot
+
+🔹 User Management and Permission Commands
+whoami - Show current logged-in user.
+whoami
+
+id - Show user/group IDs.
+id username
+
+who - Show logged-in users.
+who
+
+adduser <username> - Add new user.
+adduser devops
+
+passwd <username> - Set/change user password.
+passwd devops
+
+usermod - Modify user account.
+usermod -aG sudo devops   # add user to sudo group
+
+deluser <username> - Remove a user.
+deluser devops
+
+groups - Show user groups.
+groups username
+
+sudo <command> - Run command as superuser.
+sudo apt update
+
+chmod - Change file permissions.
+chmod 644 file.txt
+
+chown - Change file owner/group.
+chown user:group file.txt
+
+umask - Show or set default permissions.
+umask 022
+
+🔹 Package Management Commands
+
+(depends on distro: Debian/Ubuntu = apt, RedHat/CentOS = yum/dnf)
+
+apt update - Refresh package list (Debian/Ubuntu).
+sudo apt update
+
+apt install <pkg> - Install a package.
+sudo apt install nginx
+
+apt remove <pkg> - Remove a package.
+sudo apt remove nginx
+
+apt upgrade - Upgrade installed packages.
+sudo apt upgrade
+
+yum install <pkg> - Install package (RHEL/CentOS).
+sudo yum install httpd
+
+yum remove <pkg> - Remove package.
+sudo yum remove httpd
+
+dnf update - Update packages (newer RHEL).
+sudo dnf update
+
+rpm -qa - List installed RPM packages.
+rpm -qa | grep nginx
+
+🔹 Networking Commands
+ifconfig - Show network interfaces. (deprecated → use ip)
+ifconfig -a
+
+ip addr - Show IP addresses.
+ip addr show
+
+ping <host> - Check network connectivity.
+ping google.com
+
+curl <url> - Fetch content from URL.
+curl -I https://example.com   # fetch headers only
+
+wget <url> - Download files from the web.
+wget https://example.com/file.tar.gz
+
+netstat -tulnp - Show network connections/ports. (deprecated → ss)
+netstat -an | grep 80
+
+ss -tulnp - Show listening ports and sockets.
+ss -tulnp
+
+traceroute <host> - Trace route to host.
+traceroute google.com
+
+nslookup <domain> - DNS query.
+nslookup openai.com
+
+dig <domain> - Detailed DNS query.
+dig google.com +short
+
+scp <src> <user@host>:<dest> - Secure copy files between hosts.
+scp file.txt user@server:/tmp/
+
+rsync -avz <src> <dest> - Sync files between servers.
+rsync -avz /src/ user@server:/dest/
+
+🔹 Text Processing & Manipulation Commands
+cat <file> - View file content.
+cat file.txt
+
+less <file> - View large files interactively.
+less /var/log/syslog
+
+head -n <num> <file> - Show first N lines.
+head -n 20 file.txt
+
+tail -f <file> - Show last lines (follow mode).
+tail -f logfile.log
+
+wc <file> - Count lines, words, characters.
+wc -l file.txt
+
+sort <file> - Sort lines.
+sort names.txt
+
+uniq <file> - Remove duplicate lines.
+sort names.txt | uniq -c
+
+cut -d <delim> -f <fields> - Extract columns.
+cut -d',' -f2 users.csv
+
+awk - Pattern-based text processing.
+awk '{print $1,$3}' data.txt
+
+sed - Stream editor for search/replace.
+sed 's/error/ERROR/g' logfile.txt
+
+tr - Translate or delete characters.
+cat file.txt | tr 'a-z' 'A-Z'   # convert lowercase to uppercase
+
+xargs - Build commands from input.
+find . -name "*.log" | xargs rm
+
+🔹 Disk and Filesystem Management
+lsblk - List block devices.
+lsblk    # show disks and partitions
+
+blkid - Show block device attributes.
+blkid /dev/sda1
+
+fdisk - Partition a disk (interactive).
+fdisk /dev/sdb
+
+parted - Partition tool (modern).
+parted /dev/sdb print
+
+mkfs - Create a filesystem.
+mkfs.ext4 /dev/sdb1
+
+mount - Mount filesystem.
+mount /dev/sdb1 /mnt/data
+
+umount - Unmount filesystem.
+umount /mnt/data
+
+fsck - Check/repair filesystem.
+fsck /dev/sdb1
+
+🔹 Archive and Compression
+tar - Archive files.
+tar -czvf archive.tar.gz dir/
+
+gzip - Compress a file.
+gzip file.txt
+
+gunzip - Decompress a file.
+gunzip file.txt.gz
+
+zip - Create zip archive.
+zip -r archive.zip dir/
+
+unzip - Extract zip archive.
+unzip archive.zip
+
+🔹 Log Management
+journalctl - View systemd logs.
+journalctl -xe   # view recent errors  
+journalctl -u nginx   # logs for nginx service
+
+tail -f - Follow log files.
+tail -f /var/log/syslog
+
+less - Browse log files.
+less +F /var/log/auth.log
+
+🔹 Service Management (systemd)
+systemctl status <service> - Check service status.
+systemctl status nginx
+
+systemctl start <service> - Start a service.
+systemctl start nginx
+
+systemctl stop <service> - Stop a service.
+systemctl stop nginx
+
+systemctl restart <service> - Restart a service.
+systemctl restart nginx
+
+systemctl enable <service> - Enable on boot.
+systemctl enable nginx
+
+systemctl disable <service> - Disable on boot.
+systemctl disable nginx
+
+🔹 Security and SSH
+ssh user@host - Connect to remote server.
+ssh user@192.168.1.10
+
+ssh-copy-id user@host - Copy SSH key to server.
+ssh-copy-id user@server
+
+scp file user@host:/path/ - Copy file via SSH.
+scp file.txt user@server:/tmp/
+
+rsync - Sync files between hosts.
+rsync -avz /src/ user@server:/dest/
+
+ufw - Simple firewall management.
+ufw enable  
+ufw allow 22/tcp  
+ufw status
+
+iptables - Firewall rule management.
+iptables -L -n -v
+
+🔹 Performance Troubleshooting
+uptime - Show load averages.
+uptime
+
+free -h - Show memory usage.
+free -h
+
+vmstat 1 - System performance stats.
+vmstat 1
+
+iostat - CPU and I/O usage.
+iostat -xz 1
+
+dstat - General system performance tool.
+dstat
+
+lsof - List open files & ports.
+lsof -i :80   # processes using port 80
+
+strace - Trace system calls.
+strace -p <pid>
+
+tcpdump - Capture network packets.
+tcpdump -i eth0 port 80
+
+🔹 Cron and Scheduling
+crontab -e - Edit user’s cron jobs.
+crontab -e
+
+crontab -l - List cron jobs.
+crontab -l
+
+Example: Run script every day at midnight
+0 0 * * * /path/to/script.sh
+
+at <time> - Run a command once at a given time.
+echo "shutdown -h now" | at 23:00
+
+🔹 Disk Usage & Cleanup
+du - Disk usage of files/directories.
+du -sh *   # summary in current directory
+
+df -h - Disk space usage.
+df -h
+
+ncdu - Interactive disk usage (requires install).
+ncdu /var/log
