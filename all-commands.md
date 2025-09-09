@@ -212,6 +212,7 @@ sar -u 1 3   # CPU usage every 1s, 3 times
 ```
 
 ## System Commands
+
 **`uname -a`** - Show system information.
 ```bash
 uname -r    # kernel version  
@@ -307,71 +308,112 @@ umask 022
 ```
 
 ## Package Management Commands
+(depends on distro: Debian/Ubuntu = apt, RedHat/CentOS/Amazon Linux = yum/dnf)
 
-(depends on distro: Debian/Ubuntu = apt, RedHat/CentOS = yum/dnf)
-
-apt update - Refresh package list (Debian/Ubuntu).
+**`apt update`** - Refresh package list (Debian/Ubuntu).
+```bash
 sudo apt update
+```
 
-apt install <pkg> - Install a package.
+**`apt install <pkg>`** - Install a package.
+```bash
 sudo apt install nginx
+```
 
-apt remove <pkg> - Remove a package.
+**`apt remove <pkg>`** - Remove a package.
+```bash
 sudo apt remove nginx
+```
 
-apt upgrade - Upgrade installed packages.
+**`apt upgrade`** - Upgrade installed packages.
+```bash
 sudo apt upgrade
+```
 
-yum install <pkg> - Install package (RHEL/CentOS).
+**`yum install <pkg>`** - Install package (RHEL/CentOS).
+```bash
 sudo yum install httpd
+```
 
-yum remove <pkg> - Remove package.
+**`yum remove <pkg>`** - Remove package.
+```bash
 sudo yum remove httpd
+```
 
-dnf update - Update packages (newer RHEL).
+**`dnf update`** - Update packages (newer RHEL).
+```bash
 sudo dnf update
+```
 
-rpm -qa - List installed RPM packages.
+**`rpm -qa`** - List installed RPM packages.
+```bash
 rpm -qa | grep nginx
+```
 
-🔹 Networking Commands
-ifconfig - Show network interfaces. (deprecated → use ip)
+## Networking Commands
+
+**`ifconfig`** - Show network interfaces. (deprecated → use ip)
+```bash
 ifconfig -a
+```
 
-ip addr - Show IP addresses.
+**`ip addr`** - Show IP addresses.
+```bash
 ip addr show
+```
 
-ping <host> - Check network connectivity.
+**`ping <host>`** - Check network connectivity.
+```bash
 ping google.com
+```
 
-curl <url> - Fetch content from URL.
+**`curl <url>`** - Fetch content from URL.
+```bash
 curl -I https://example.com   # fetch headers only
+```
 
-wget <url> - Download files from the web.
+**`wget <url>`** - Download files from the web.
+```bash
 wget https://example.com/file.tar.gz
+```
 
-netstat -tulnp - Show network connections/ports. (deprecated → ss)
+**`netstat -tulnp`** - Show network connections/ports. (deprecated → ss)
+```bash
 netstat -an | grep 80
+```
 
-ss -tulnp - Show listening ports and sockets.
+**`ss -tulnp`** - Show listening ports and sockets.
+```bash
 ss -tulnp
+```
 
-traceroute <host> - Trace route to host.
+**`traceroute <host>`** - Trace route to host.
+```bash
 traceroute google.com
+```
 
-nslookup <domain> - DNS query.
+**`nslookup <domain>`** - DNS query.
+```bash
 nslookup openai.com
+```
 
-dig <domain> - Detailed DNS query.
+**`dig <domain>`** - Detailed DNS query.
+```bash
 dig google.com +short
+```
 
-scp <src> <user@host>:<dest> - Secure copy files between hosts.
+**`scp <src> <user@host>:<dest>`** - Secure copy files between hosts.
+```bash
 scp file.txt user@server:/tmp/
+```
 
-rsync -avz <src> <dest> - Sync files between servers.
+**`rsync -avz <src> <dest>`** - Sync files between servers.
+```bash
 rsync -avz /src/ user@server:/dest/
+```
 
-🔹 Text Processing & Manipulation Commands
+## Text Processing & Manipulation Commands
+
 cat <file> - View file content.
 cat file.txt
 
@@ -408,99 +450,135 @@ cat file.txt | tr 'a-z' 'A-Z'   # convert lowercase to uppercase
 xargs - Build commands from input.
 find . -name "*.log" | xargs rm
 
-🔹 Disk and Filesystem Management
-lsblk - List block devices.
+## Disk and Filesystem Management
+
+**`lsblk`** - List block devices.
+```bash
 lsblk    # show disks and partitions
+```
 
-blkid - Show block device attributes.
+**`blkid`** - Show block device attributes.
+```bash
 blkid /dev/sda1
+```
 
-fdisk - Partition a disk (interactive).
+**`fdisk`** - Partition a disk (interactive).
+```bash
 fdisk /dev/sdb
+```
 
-parted - Partition tool (modern).
+**`parted`** - Partition tool (modern).
+```bash
 parted /dev/sdb print
+```
 
-mkfs - Create a filesystem.
+**`mkfs`** - Create a filesystem.
+```bash
 mkfs.ext4 /dev/sdb1
+```
 
-mount - Mount filesystem.
+**`mount`** - Mount filesystem.
+```bash
 mount /dev/sdb1 /mnt/data
+```
 
-umount - Unmount filesystem.
+**`umount`** - Unmount filesystem.
+```bash
 umount /mnt/data
+```
 
-fsck - Check/repair filesystem.
+**`fsck`** - Check/repair filesystem.
+```bash
 fsck /dev/sdb1
+```
 
-🔹 Archive and Compression
-tar - Archive files.
+## Archive and Compression
+
+**`tar`** - Archive files.
+```bash
 tar -czvf archive.tar.gz dir/
+```
 
-gzip - Compress a file.
+**`gzip`** - Compress a file.
+```bash
 gzip file.txt
+```
 
-gunzip - Decompress a file.
+**`gunzip`** - Decompress a file.
+```bash
 gunzip file.txt.gz
+```
 
-zip - Create zip archive.
+**`zip`** - Create zip archive.
+```bash
 zip -r archive.zip dir/
+```
 
-unzip - Extract zip archive.
+**`unzip`** - Extract zip archive.
+```bash
 unzip archive.zip
+```
 
-🔹 Log Management
-journalctl - View systemd logs.
+## Log Management
+
+**`journalctl`** - View systemd logs.
+```bash
 journalctl -xe   # view recent errors  
 journalctl -u nginx   # logs for nginx service
+```
 
-tail -f - Follow log files.
-tail -f /var/log/syslog
+**`tail -f`** - Follow log files.
 
-less - Browse log files.
-less +F /var/log/auth.log
+**`less`** - Browse log files.
 
-🔹 Service Management (systemd)
-systemctl status <service> - Check service status.
-systemctl status nginx
+## Service Management (systemd)
 
-systemctl start <service> - Start a service.
-systemctl start nginx
+**`systemctl status <service>`** - Check service status.
 
-systemctl stop <service> - Stop a service.
-systemctl stop nginx
+**`systemctl start <service>`** - Start a service.
 
-systemctl restart <service> - Restart a service.
-systemctl restart nginx
+**`systemctl stop <service>`** - Stop a service.
 
-systemctl enable <service> - Enable on boot.
-systemctl enable nginx
+**`systemctl restart <service>`** - Restart a service.
 
-systemctl disable <service> - Disable on boot.
-systemctl disable nginx
+**`systemctl enable <service>`** - Enable on boot.
 
-🔹 Security and SSH
-ssh user@host - Connect to remote server.
-ssh user@192.168.1.10
+**`systemctl disable <service>`** - Disable on boot.
 
-ssh-copy-id user@host - Copy SSH key to server.
-ssh-copy-id user@server
+**`systemctl mask <service>`** - prevents a service from being started under any circumstances, even as a dependency of another service
 
-scp file user@host:/path/ - Copy file via SSH.
+**`systemctl unmask <service>`** - reverses mask action, allowing the service to be started again.
+
+## Security and SSH
+
+**`ssh user@host`** - Connect to remote server.
+
+**`ssh-copy-id user@host`** - Copy SSH key to server.
+
+**`scp file user@host:/path/`** - Copy file via SSH.
+```bash
 scp file.txt user@server:/tmp/
+```
 
-rsync - Sync files between hosts.
+**`rsync`** - Sync files between hosts.
+```bash
 rsync -avz /src/ user@server:/dest/
+```
 
-ufw - Simple firewall management.
+**`ufw`** - Simple firewall management.
+```bash
 ufw enable  
 ufw allow 22/tcp  
 ufw status
+```
 
-iptables - Firewall rule management.
+**`iptables`** - Firewall rule management.
+```bash
 iptables -L -n -v
+```
 
 ## Performance Troubleshooting
+
 **`uptime`** - Show load averages.
 
 **`free -h`** - Show memory usage.
