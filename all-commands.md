@@ -250,6 +250,7 @@ shutdown -r now    # reboot immediately
 **`reboot`** - Restart system.
 
 ## User Management and Permission Commands
+
 **`whoami`** - Show current logged-in user.
 
 **`id`** - Show user/group IDs.
@@ -301,9 +302,11 @@ chown user:group file.txt
 ```
 
 **`umask`** - Show or set default permissions.
-```bash umask 022```
+```bash
+umask 022
+```
 
-🔹 Package Management Commands
+## Package Management Commands
 
 (depends on distro: Debian/Ubuntu = apt, RedHat/CentOS = yum/dnf)
 
@@ -497,50 +500,59 @@ ufw status
 iptables - Firewall rule management.
 iptables -L -n -v
 
-🔹 Performance Troubleshooting
-uptime - Show load averages.
-uptime
+## Performance Troubleshooting
+**`uptime`** - Show load averages.
 
-free -h - Show memory usage.
-free -h
+**`free -h`** - Show memory usage.
 
-vmstat 1 - System performance stats.
-vmstat 1
+**`vmstat 1`** - System performance stats.
 
-iostat - CPU and I/O usage.
-iostat -xz 1
+**`iostat`** - CPU and I/O usage.
 
-dstat - General system performance tool.
-dstat
+**`dstat`** - General system performance tool.
 
-lsof - List open files & ports.
+**`lsof`** - List open files & ports.
+```bash
 lsof -i :80   # processes using port 80
+```
 
-strace - Trace system calls.
-strace -p <pid>
+**`strace`** - Trace system calls.
+```bash
+strace -p <pid> # traces the system calls made by a process with the specified process ID
+```
 
-tcpdump - Capture network packets.
-tcpdump -i eth0 port 80
+**`tcpdump`** - Capture network packets.
+```bash
+tcpdump -i eth0 port 80 # captures and displays all network packets passing through the eth0 interface that are destined for or originating from port 80
+```
 
-🔹 Cron and Scheduling
-crontab -e - Edit user’s cron jobs.
+## Cron and Scheduling
+
+**`crontab -e`** - Edit user’s cron jobs.
+```bash
 crontab -e
+```
 
-crontab -l - List cron jobs.
+**`crontab -l`** - List cron jobs.
+```bash
 crontab -l
-
 Example: Run script every day at midnight
 0 0 * * * /path/to/script.sh
+```
 
-at <time> - Run a command once at a given time.
+**`at <time>`** - Run a command once at a given time.
+```bash
 echo "shutdown -h now" | at 23:00
+```
 
-🔹 Disk Usage & Cleanup
-du - Disk usage of files/directories.
+## Disk Usage & Cleanup
+
+**`du`** - Disk usage of files/directories.
+```bash
 du -sh *   # summary in current directory
+```
 
-df -h - Disk space usage.
+**`df -h`** - Disk space usage.
+```bash
 df -h
-
-ncdu - Interactive disk usage (requires install).
-ncdu /var/log
+```
