@@ -170,71 +170,86 @@ file script.sh   # check if it’s ASCII, binary, etc.
 strings /bin/ls | grep "usage"   # find readable strings in binary
 ```
 
-🔹 Process and System Monitoring Commands
-ps - Show running processes.
+## Process and System Monitoring Commands
+**`ps`** - Show running processes.
+```bash
 ps aux          # detailed process info  
 ps -ef | grep nginx   # find process by name
+```
 
-top - Real-time process and resource monitor.
-top   # live view of CPU/memory usage  
+**`top`** - Real-time process and resource monitor.
 
-htop - Interactive process viewer (better than top).
-htop   # requires package installation
+**`htop`** - Interactive process viewer (better than top).
 
-kill <pid> - Kill a process by PID.
+**`kill <pid>`** - Kill a process by PID.
+```bash
 kill -9 1234   # force kill process
+```
 
-jobs - Show background jobs in current shell.
-jobs   # list jobs
+**`jobs`** - Show background jobs in current shell.
 
-bg / fg - Resume jobs in background/foreground.
+**`bg / fg`** - Resume jobs in background/foreground.
+```bash
 fg %1   # bring job 1 to foreground  
 bg %1   # run job 1 in background
+```
 
-uptime - Show system load averages and uptime.
-uptime
+**`free -h`** - Show memory usage.
 
-free -h - Show memory usage.
-free -h   # human-readable format
-
-vmstat - Show CPU, memory, I/O statistics.
+**`vmstat`** - Show CPU, memory, I/O statistics.
+```bash
 vmstat 2 5   # sample every 2s, 5 times
+```
 
-iostat - Show CPU and disk I/O statistics.
+**`iostat`** - Show CPU and disk I/O statistics.
+```bash
 iostat -x 2   # extended stats every 2s
+```
 
-sar - System activity reporter (CPU, memory, network).
+**`sar`** - System activity reporter (CPU, memory, network).
+```bash
 sar -u 1 3   # CPU usage every 1s, 3 times
+```
 
-🔹 System Commands
-uname -a - Show system information.
+## System Commands
+**`uname -a`** - Show system information.
+```bash
 uname -r    # kernel version  
 uname -m    # machine architecture
+```
 
-hostname - Show or set system hostname.
+**`hostname`** - Show or set system hostname.
+```bash
 hostname    # display hostname  
 hostnamectl set-hostname newhost
+```
 
-dmesg - Show kernel ring buffer logs.
+**`dmesg`** - Show kernel ring buffer logs.
+```bash
 dmesg | grep usb   # check USB logs
+```
 
-uptime - Show system uptime and load averages.
-uptime
+**`uptime`** - Show system load averages and uptime.
 
-date - Show or set system date/time.
+**`date`** - Show or set system date/time.
+```bash
 date "+%Y-%m-%d %H:%M:%S"   # formatted date
+```
 
-cal - Display a calendar.
+**`cal`** - Display a calendar.
+```bash
 cal 2025   # calendar for year 2025
+```
 
-shutdown - Power off/reboot system.
+**`shutdown`** - Power off/reboot system.
+```bash
 shutdown -h now    # shutdown immediately  
 shutdown -r now    # reboot immediately
+```
 
-reboot - Restart system.
-reboot
+**`reboot`** - Restart system.
 
-🔹 User Management and Permission Commands
+## User Management and Permission Commands
 whoami - Show current logged-in user.
 whoami
 
