@@ -250,41 +250,58 @@ shutdown -r now    # reboot immediately
 **`reboot`** - Restart system.
 
 ## User Management and Permission Commands
-whoami - Show current logged-in user.
-whoami
+**`whoami`** - Show current logged-in user.
 
-id - Show user/group IDs.
+**`id`** - Show user/group IDs.
+```bash
 id username
+```
 
-who - Show logged-in users.
-who
+**`who`*8 - Show logged-in users.
 
-adduser <username> - Add new user.
+**`adduser <username>`** - Add new user.
+```bash
 adduser devops
-
-passwd <username> - Set/change user password.
+```
+**`passwd <username>`** - Set/change user password.
+```bash
 passwd devops
+```
 
-usermod - Modify user account.
+**`usermod`** - Modify user account.
+```bash
 usermod -aG sudo devops   # add user to sudo group
+```
 
-deluser <username> - Remove a user.
+**`deluser <username>`** - Remove a user.
+```bash
 deluser devops
+```
 
-groups - Show user groups.
+**`groups`** - Show user groups.
+```bash
 groups username
+```
 
-sudo <command> - Run command as superuser.
+**`sudo <command>`** - Run command as superuser.
+```bash
 sudo apt update
+```
 
-chmod - Change file permissions.
+**`chmod`** - Change file permissions.
+```bash
 chmod 644 file.txt
+chmod ugo+x file.txt
+chmod u+x file.txt
+```
 
-chown - Change file owner/group.
+**`chown`** - Change file owner/group.
+```bash
 chown user:group file.txt
+```
 
-umask - Show or set default permissions.
-umask 022
+**`umask`** - Show or set default permissions.
+```bash umask 022```
 
 🔹 Package Management Commands
 
