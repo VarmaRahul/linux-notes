@@ -117,63 +117,6 @@ mount /dev/sdb1 /mnt/usb   # mount USB to /mnt/usb
 umount /mnt/sda   # unmount device from directory  
 ```
 
-**`head <file>`** - Show the first lines of a file.
-```bash
-head -n 20 logfile.txt   # show first 20 lines
-```
-
-**`tail <file>`** - Show the last lines of a file.
-```bash
-tail -f logfile.txt      # follow logs in real-time
-```
-
-**`less <file>`** - View file content interactively (scroll/search).
-```bash
-less /var/log/syslog   # view large log file
-```
-
-**`wc <file>`** - Count lines, words, and characters.
-```bash
-wc -l file.txt     # count lines  
-wc -w file.txt     # count words
-```
-
-**`sort <file>`** - Sort lines in a file.
-```bash
-sort users.txt               # sort alphabetically  
-sort -n numbers.txt          # numeric sort  
-sort -u list.txt             # unique sorted list
-```
-
-**`uniq <file>`** - Filter out duplicate lines.
-```bash
-uniq list.txt                # remove duplicates (must be sorted)  
-sort list.txt | uniq -c      # count occurrences
-```
-
-**`cut -d <delim> -f <fields>`** - Extract specific columns from files.
-```bash
-cut -d',' -f1,3 data.csv   # extract 1st and 3rd column
-```
-
-**`awk '<pattern> {action}' <file>`** - Pattern scanning and text processing.
-```bash
-awk '{print $1, $3}' data.txt    # print 1st and 3rd columns  
-awk '/error/ {print $0}' log.txt # print lines containing "error"
-```
-
-**`sed '<cmd>' <file>`** - Stream editor for search/replace.
-```bash
-sed 's/error/ERROR/g' logfile.txt   # replace "error" with "ERROR"  
-sed -n '10,20p' file.txt            # print lines 10 to 20
-```
-
-**`xargs`** - Build and execute command lines from stdin.
-```bash
-find . -name "*.log" | xargs rm    # delete all .log files  
-cat urls.txt | xargs -n1 curl -O   # download files from list of URLs
-```
-
 **`stat <file>`**- Show detailed file information.
 ```bash
 stat file.txt   # show inode, size, permissions, timestamps
@@ -433,41 +376,65 @@ rsync -avz /src/ user@server:/dest/
 
 ## Text Processing & Manipulation Commands
 
-cat <file> - View file content.
+**`cat <file>`** - View file content.
+```bash
 cat file.txt
+```
 
-less <file> - View large files interactively.
+**`less <file>`** - View large files interactively.
+```bash
 less /var/log/syslog
+```
 
-head -n <num> <file> - Show first N lines.
+**`head -n <num> <file>`** - Show first N lines.
+```bash
 head -n 20 file.txt
+```
 
-tail -f <file> - Show last lines (follow mode).
+**`tail -f <file>`** - Show last lines (follow mode).
+```bash
 tail -f logfile.log
+```
 
-wc <file> - Count lines, words, characters.
+**`wc <file>`** - Count lines, words, characters.
+```bash
 wc -l file.txt
+```
 
-sort <file> - Sort lines.
+**`sort <file>`** - Sort lines.
+```bash
 sort names.txt
+```
 
-uniq <file> - Remove duplicate lines.
+**`uniq <file>`** - Remove duplicate lines.
+```bash
 sort names.txt | uniq -c
+```
 
-cut -d <delim> -f <fields> - Extract columns.
+**`cut -d <delim> -f <fields>`** - Extract columns.
+```bash
 cut -d',' -f2 users.csv
+```
 
-awk - Pattern-based text processing.
+**`awk`** - Pattern-based text processing.
+```bash
 awk '{print $1,$3}' data.txt
+```
 
-sed - Stream editor for search/replace.
+**`sed`** - Stream editor for search/replace.
+```bash
 sed 's/error/ERROR/g' logfile.txt
+```
 
-tr - Translate or delete characters.
+**`tr`** - Translate or delete characters.
+```bash
 cat file.txt | tr 'a-z' 'A-Z'   # convert lowercase to uppercase
+```
 
-xargs - Build commands from input.
+**`xargs`** - Build commands from input.
+```bash
 find . -name "*.log" | xargs rm
+```
 
 ## Disk and Filesystem Management
 
