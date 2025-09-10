@@ -1,5 +1,4 @@
-# linux-notes
-My all linux learning
+My linux learning
 
 # 📑 Index
 
