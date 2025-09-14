@@ -69,7 +69,7 @@ cat file1 >> file2             # add all content from file1 to file 2
 cat >> file                    # add text to file and ctrl+d to exit
 ```
 
-**`11. find <path> -name <pattern>`** - Search files and directories.
+**`find <path> -name <pattern>`** - Search files and directories.
 ```bash
 find /home -name "*.txt"    # find all .txt files  
 find . -type d -name test   # find directories named "test"
@@ -81,44 +81,6 @@ find . -type f -name test   # find files named "test"
 grep "error" logfile.txt         # search keyword in file, -i for ignore case  
 grep -r "main()" ./src           # recursive search in directory
 grep -c 'Failed' messages.log    # count occurance word "Failed" appears in file.
-```
-
-**`tar`** - Archive and extract files.
-```bash
-tar -cvf archive.tar dir/        # create tar archive  
-tar -xvf archive.tar             # extract tar archive
-tar -tvf archive.tar             # check content of tar archive  
-tar -czvf archive.tar.gz dir/    # create compressed archive  
-tar -xzvf archive.tar.gz         # extract compressed archive
-tar -tzvf archive.tar            # check content of compressed tar archive  
-```
-
-**`df`** - Show disk space usage file system.
-```bash
-df -h    # human-readable format
-```
-
-**`du`** - Show file/directory space usage.
-```bash
-du -sh *   # summary of all files/directories in current path in human readable size  
-```
-
-**`chmod <permissions> <file>`** - Change file permissions.
-```bash
-chmod 755 script.sh    # owner: rwx, group: r-x, others: r-x  
-chmod u+x script.sh    # add execute permission for owner
-```
-
-**`chown <user>:<group> <file>`** - Change file ownership.
-```bash
-chown user file.txt           # change owner  
-chown user:group file.txt     # change owner and group
-```
-
-**`mount <device> <dir>`** - Mount a filesystem/device.
-```bash
-mount /dev/sdb1 /mnt/usb   # mount USB to /mnt/usb  
-umount /mnt/sdb1          # unmount device from directory  
 ```
 
 **`stat <file>`**- Show detailed file information.
@@ -263,9 +225,10 @@ chmod ugo+x file.txt
 chmod u+x file.txt
 ```
 
-**`chown`** - Change file owner/group.
+**`chown <user>:<group> <file>`** - Change file ownership.
 ```bash
-chown user:group file.txt
+chown user file.txt           # change owner  
+chown user:group file.txt     # change owner and group
 ```
 
 **`umask`** - Show or set default permissions.
@@ -467,14 +430,10 @@ parted /dev/sdb print
 mkfs.ext4 /dev/sdb1
 ```
 
-**`mount`** - Mount filesystem.
+**`mount <device> <dir>`** - Mount a filesystem/device.
 ```bash
-mount /dev/sdb1 /mnt/data
-```
-
-**`umount`** - Unmount filesystem.
-```bash
-umount /mnt/data
+mount /dev/sdb1 /mnt/usb   # mount USB to /mnt/usb  
+umount /mnt/sdb1          # unmount device from directory  
 ```
 
 **`fsck`** - Check/repair filesystem.
@@ -484,9 +443,14 @@ fsck /dev/sdb1
 
 ## Archive and Compression
 
-**`tar`** - Archive files.
+**`tar`** - Archive and extract files.
 ```bash
-tar -czvf archive.tar.gz dir/
+tar -cvf archive.tar dir/        # create tar archive  
+tar -xvf archive.tar             # extract tar archive
+tar -tvf archive.tar             # check content of tar archive  
+tar -czvf archive.tar.gz dir/    # create compressed archive  
+tar -xzvf archive.tar.gz         # extract compressed archive
+tar -tzvf archive.tar            # check content of compressed tar archive  
 ```
 
 **`gzip`** - Compress a file.
@@ -517,9 +481,15 @@ journalctl -xe   # view recent errors
 journalctl -u nginx   # logs for nginx service
 ```
 
-**`tail -f`** - Follow log files.
+**`cat /var/log/syslog`**  # check central log file for a Linux system
 
-**`less`** - Browse log files.
+**`cat /var/log/dmesg`**  # Contains kernel ring buffer messages, to look for information about hardware detection, device drivers, and kernel-level errors that occur during system boot. 
+
+**`cat /var/log/boot.log`** # system startup sequence
+
+**`/var/log/auth.log`**  # authentication related events
+
+**`sudo logrotate -f /etc/logrotate.conf`** # force rotation of all logs
 
 ## Service Management (systemd)
 
@@ -545,16 +515,6 @@ journalctl -u nginx   # logs for nginx service
 
 **`ssh-copy-id user@host`** - Copy SSH key to server.
 
-**`scp file user@host:/path/`** - Copy file via SSH.
-```bash
-scp file.txt user@server:/tmp/
-```
-
-**`rsync`** - Sync files between hosts.
-```bash
-rsync -avz /src/ user@server:/dest/
-```
-
 **`ufw`** - Simple firewall management.
 ```bash
 ufw enable  
@@ -568,14 +528,6 @@ iptables -L -n -v
 ```
 
 ## Performance Troubleshooting
-
-**`uptime`** - Show load averages.
-
-**`free -h`** - Show memory usage.
-
-**`vmstat 1`** - System performance stats.
-
-**`iostat`** - CPU and I/O usage.
 
 **`dstat`** - General system performance tool.
 
@@ -598,12 +550,7 @@ tcpdump -i eth0 port 80 # captures and displays all network packets passing thro
 
 **`crontab -e`** - Edit user’s cron jobs.
 ```bash
-crontab -e
-```
-
-**`crontab -l`** - List cron jobs.
-```bash
-crontab -l
+crontab -l # List cron jobs
 Example: Run script every day at midnight
 0 0 * * * /path/to/script.sh
 ```
@@ -615,12 +562,12 @@ echo "shutdown -h now" | at 23:00
 
 ## Disk Usage & Cleanup
 
-**`du`** - Disk usage of files/directories.
+**`df`** - Show disk space usage file system.
 ```bash
-du -sh *   # summary in current directory
+df -h    # human-readable format
 ```
 
-**`df -h`** - Disk space usage.
+**`du`** - Show file/directory space usage.
 ```bash
-df -h
+du -sh *   # summary of all files/directories in current path in human readable size  
 ```
