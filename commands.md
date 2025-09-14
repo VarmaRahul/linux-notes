@@ -106,12 +106,19 @@ ps -ef | grep nginx   # find process by name
 ```
 
 **`top`** - Real-time process and resource monitor.
-
-**`htop`** - Interactive process viewer (better than top).
-
-**`kill <pid>`** - Kill a process by PID.
 ```bash
-kill -9 1234   # force kill process
+P # Sorts by CPU usage
+M # Sorts by memory usage
+T # Sorts by running time
+```
+
+**`htop`** - Interactive process viewer
+
+**`kill [signal] [PID]`** - Kill a process by PID.
+```bash
+15 (SIGTERM) # default and common
+9 (SIGKILL)  # forcefull kill
+1 (SIGHUP)   # hang up signal
 ```
 
 **`jobs`** - Show background jobs in current shell.
@@ -145,12 +152,16 @@ sar -u 1 3   # CPU usage every 1s, 3 times
 ```bash
 uname -r    # kernel version  
 uname -m    # machine architecture
+uname -s    # kernal name
+uname -n    # node name/ hostname of system
+uname -p    # processor type
+uname -o    # operating system
 ```
 
 **`hostname`** - Show or set system hostname.
 ```bash
 hostname    # display hostname  
-hostnamectl set-hostname newhost
+hostnamectl set-hostname newhost  # set new name of host
 ```
 
 **`dmesg`** - Show kernel ring buffer logs.
@@ -165,18 +176,24 @@ dmesg | grep usb   # check USB logs
 date "+%Y-%m-%d %H:%M:%S"   # formatted date
 ```
 
-**`cal`** - Display a calendar.
+**`cal`** - Display calendar for current month.
 ```bash
+cal 9 2025   # calendar for sept in year 2025
 cal 2025   # calendar for year 2025
 ```
 
 **`shutdown`** - Power off/reboot system.
 ```bash
-shutdown -h now    # shutdown immediately  
-shutdown -r now    # reboot immediately
+shutdown -h now    # shutdown immediately, h for halt
+shutdown -r now    # reboot immediately, r for reboot
+shutdown +5        # Shuts down the system in 5 minutes.
+shutdown 22:00     # Shuts down the system at 10:00 PM.
 ```
 
 **`reboot`** - Restart system.
+```bash
+reboot -f  # force reboot
+```
 
 ## User Management and Permission Commands
 
@@ -187,25 +204,28 @@ shutdown -r now    # reboot immediately
 id username
 ```
 
-**`who`*8 - Show logged-in users.
+**`who`** - Show logged-in users.
 
 **`adduser <username>`** - Add new user.
 ```bash
-adduser devops
+adduser devuser
 ```
 **`passwd <username>`** - Set/change user password.
 ```bash
-passwd devops
+passwd devuser
 ```
 
 **`usermod`** - Modify user account.
 ```bash
-usermod -aG sudo devops   # add user to sudo group
+usermod -aG sudo devuser   # add user to sudo group
+usermod -g developers devuser  # This changes the primary group of devuser to developers
+usermod -l newname oldname     # change login name
+usermod -d /home/newhome <username>  # change user home directory
 ```
 
 **`deluser <username>`** - Remove a user.
 ```bash
-deluser devops
+deluser devuser
 ```
 
 **`groups`** - Show user groups.
@@ -215,7 +235,7 @@ groups username
 
 **`sudo <command>`** - Run command as superuser.
 ```bash
-sudo apt update
+sudo su  # change to superuser
 ```
 
 **`chmod`** - Change file permissions.
@@ -274,17 +294,16 @@ sudo yum remove httpd
 sudo dnf update
 ```
 
-**`rpm -qa`** - List installed RPM packages.
 ```bash
-rpm -qa | grep nginx
+dpkg -s nginx  # check a package's installation status
+dpkg -l nginx  # lists all packages that match a given pattern
+apt list --installed nginx  #  check installed packages
+yum list installed nginx  #  check packages if currently installed on the system
+rpm -q nginx  #  query the database for a specific package
+rpm -qa | grep nginx  #  lists all installed RPM packages 
 ```
 
 ## Networking Commands
-
-**`ifconfig`** - Show network interfaces. (deprecated → use ip)
-```bash
-ifconfig -a
-```
 
 **`ip addr`** - Show IP addresses.
 ```bash
@@ -306,17 +325,21 @@ curl -I https://example.com   # fetch headers only
 wget https://example.com/file.tar.gz
 ```
 
-**`netstat -tulnp`** - Show network connections/ports. (deprecated → ss)
+**`netstat -tulnp`** - Show network connections/ports. (deprecated use ss)
 ```bash
 netstat -an | grep 80
 ```
 
-**`ss -tulnp`** - Show listening ports and sockets.
+**`ss -lutnp`** - Show listening ports and sockets.
 ```bash
-ss -tulnp
+-t	Show TCP sockets
+-u	Show UDP sockets
+-l	Show listening sockets
+-n	Don't resolve names/ports
+-p	Show processes using sockets
 ```
 
-**`traceroute <host>`** - Trace route to host.
+**`traceroute <host or IP>`** - Trace route to host.
 ```bash
 traceroute google.com
 ```
@@ -324,11 +347,17 @@ traceroute google.com
 **`nslookup <domain>`** - DNS query.
 ```bash
 nslookup openai.com
+nslookup -type=AAAA google.com
+nslookup -type=CNAME www.google.com
+nslookup -type=NS google.com
 ```
 
 **`dig <domain>`** - Detailed DNS query.
 ```bash
-dig google.com +short
+dig google.com +short # minimal output
+dig google.com AAAA
+dig google.com NS
+dig google.com CNAME
 ```
 
 **`scp <src> <user@host>:<dest>`** - Secure copy files between hosts.
@@ -338,7 +367,10 @@ scp file.txt user@server:/tmp/
 
 **`rsync -avz <src> <dest>`** - Sync files between servers.
 ```bash
-rsync -avz /src/ user@server:/dest/
+rsync -avh /home/user/documents/ /mnt/backup/documents/  #  local backup
+rsync -avz /home/user/myproject/ user@remote-server:/var/www/html/  # remote server push with compression
+rsync -avz user@remote-server:/var/www/html/ /home/user/backups/  #  remote server pull with compression
+rsync -avz --delete /home/user/myproject/ user@remote-server:/var/www/html/  #  Exact mirror copy with deletion on destination
 ```
 
 ## Text Processing & Manipulation Commands
@@ -348,34 +380,40 @@ rsync -avz /src/ user@server:/dest/
 cat file.txt
 ```
 
-**`less <file>`** - View large files interactively.
+**`more <file>`** - Can only move forward in file
+
+**`less <file>`** - Can move both forward and backward
+
+**`head -n <num> <file>`** - Show first 10 lines by default
 ```bash
-less /var/log/syslog
+head -n 20 file.txt  # show first n lines
 ```
 
-**`head -n <num> <file>`** - Show first N lines.
+**`tail <file>`** - Show last 10 lines by default
 ```bash
-head -n 20 file.txt
-```
-
-**`tail -f <file>`** - Show last lines (follow mode).
-```bash
-tail -f logfile.log
+tail -f logfile.log  #  follow live data in file
+tail -n file.txt  #  # show last n lines
 ```
 
 **`wc <file>`** - Count lines, words, characters.
 ```bash
-wc -l file.txt
+wc -l file.txt  # count lines
+wc -w file.txt  # count words
+wc -c file.txt  # count characters
 ```
 
 **`sort <file>`** - Sort lines.
 ```bash
-sort names.txt
+sort -r names.txt  # reverse
+sort -n names.txt  # numeric
+sort -r <fieldname> names.txt  # based on field/column
 ```
 
 **`uniq <file>`** - Remove duplicate lines.
 ```bash
-sort names.txt | uniq -c
+sort names.txt | uniq -u  #  only the unique lines from file
+sort names.txt | uniq -c  #  counts the occurrences of each unique line and prints the count next to the line
+sort names.txt | uniq -d  #  outputs only the lines that are duplicated and appear at least twice
 ```
 
 **`cut -d <delim> -f <fields>`** - Extract columns.
@@ -390,7 +428,10 @@ awk '{print $1,$3}' data.txt
 
 **`sed`** - Stream editor for search/replace.
 ```bash
-sed 's/error/ERROR/g' logfile.txt
+sed 's/old/new/' file.txt  #  Only the first instance of "old" on the second line is replaced
+sed 's/old/new/g' file.txt  #  replace every occurrence of a pattern on a line
+sed -i 's/old/new/g' file.txt  #  In-place editing, permanently modifies the file
+sed '/pattern/d' file.txt  #  to delete lines that match a certain pattern
 ```
 
 **`tr`** - Translate or delete characters.
@@ -455,30 +496,22 @@ tar -tzvf archive.tar            # check content of compressed tar archive
 
 **`gzip`** - Compress a file.
 ```bash
-gzip file.txt
-```
-
-**`gunzip`** - Decompress a file.
-```bash
-gunzip file.txt.gz
+gzip file.txt  #  compress
+gunzip file.txt.gz  #  decompress
 ```
 
 **`zip`** - Create zip archive.
 ```bash
-zip -r archive.zip dir/
-```
-
-**`unzip`** - Extract zip archive.
-```bash
-unzip archive.zip
+zip -r archive.zip dir/  # zip archive
+unzip archive.zip  #  Extract zip archive
 ```
 
 ## Log Management
 
 **`journalctl`** - View systemd logs.
 ```bash
-journalctl -xe   # view recent errors  
-journalctl -u nginx   # logs for nginx service
+journalctl -xe   # view recent errors with explanatory
+journalctl -u nginx   # logs for nginx service unit
 ```
 
 **`cat /var/log/syslog`**  # check central log file for a Linux system
@@ -524,7 +557,7 @@ ufw status
 
 **`iptables`** - Firewall rule management.
 ```bash
-iptables -L -n -v
+iptables -L -n -v # list numeric and verbose
 ```
 
 ## Performance Troubleshooting
