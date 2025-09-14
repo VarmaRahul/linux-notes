@@ -23,6 +23,9 @@
 ```bash
 ls -l    # detailed list
 ls -a    # show hidden files
+ls -r    # reverse order
+ls -h    # human readable
+ls -t    # sort by modified time
 ll       # alias for ls -l
 ```
 **`pwd`** - It allows you to print the current working directory.
@@ -62,6 +65,8 @@ mv file.txt /path/to/dir   # move file
 ```bash
 cat file.txt                   # show file content  
 cat file1 file2 > merged.txt   # concatenate files
+cat file1 >> file2             # add all content from file1 to file 2
+cat >> file                    # add text to file and ctrl+d to exit
 ```
 
 **`11. find <path> -name <pattern>`** - Search files and directories.
@@ -73,16 +78,19 @@ find . -type f -name test   # find files named "test"
 
 **`grep <pattern> <file>`** - Search text using patterns.
 ```bash
-grep "error" logfile.txt         # search keyword in file  
+grep "error" logfile.txt         # search keyword in file, -i for ignore case  
 grep -r "main()" ./src           # recursive search in directory
+grep -c 'Failed' messages.log    # count occurance word "Failed" appears in file.
 ```
 
 **`tar`** - Archive and extract files.
 ```bash
 tar -cvf archive.tar dir/        # create tar archive  
-tar -xvf archive.tar             # extract tar archive  
+tar -xvf archive.tar             # extract tar archive
+tar -tvf archive.tar             # check content of tar archive  
 tar -czvf archive.tar.gz dir/    # create compressed archive  
 tar -xzvf archive.tar.gz         # extract compressed archive
+tar -tzvf archive.tar            # check content of compressed tar archive  
 ```
 
 **`df`** - Show disk space usage file system.
@@ -110,11 +118,7 @@ chown user:group file.txt     # change owner and group
 **`mount <device> <dir>`** - Mount a filesystem/device.
 ```bash
 mount /dev/sdb1 /mnt/usb   # mount USB to /mnt/usb  
-```
-
-**`umount <dir>`** - Unmount a filesystem/device.
-```bash
-umount /mnt/sda   # unmount device from directory  
+umount /mnt/sdb1          # unmount device from directory  
 ```
 
 **`stat <file>`**- Show detailed file information.
