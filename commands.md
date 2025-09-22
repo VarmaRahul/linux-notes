@@ -310,6 +310,8 @@ rpm -qa | grep nginx  #  lists all installed RPM packages
 ip addr show
 ```
 
+**`ip link set <interface_name> up`** - Use this command to manually bring a network interface up if it's down
+
 **`ping <host>`** - Check network connectivity.
 ```bash
 ping google.com
@@ -480,6 +482,24 @@ umount /mnt/sdb1          # unmount device from directory
 **`fsck`** - Check/repair filesystem.
 ```bash
 fsck /dev/sdb1
+```
+
+**`ulimit [options] [limit]`** - It is used to view or set the resource limits for a user's session or a running process. These limits control how many system resources, such as open files, memory, and CPU time, a process can use.
+```bash
+-a: This is the most common option. It displays all current resource limits.
+-n: Sets or displays the maximum number of open file descriptors (files).
+-c: Sets or displays the maximum size of a core file.
+-f: Sets or displays the maximum file size a user can create.
+-s: Sets or displays the maximum stack size.
+-u: Sets or displays the maximum number of user processes.
+-v: Sets or displays the maximum virtual memory size.
+```
+
+**`Format file system on linux`** - find the file system type of the disk, like EXT4, NTFS, or XFS. Then run one of the following commands according to the file system type
+```bash
+mkfs.ext4 <partition>
+mkfs.xfs <partition>
+mkfs.ntfs <partition>
 ```
 
 ## Archive and Compression
